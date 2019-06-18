@@ -58,8 +58,32 @@ d3.csv("../Resources/listings2.csv", function(response) {
           popupInfo = popupInfo + "<tr><td>Listing Url: <a href='" + response[i].listing_url + "' target='_blank'>" + response[i].listing_url + "</a></td></tr>";
           popupInfo = popupInfo + "</table>";
 
+          let LeafIcon = L.Icon.extend({
+              options: {
+                  shadowUrl: '../Resources/shadowMarker.png',
+                  iconSize: [38, 95],
+                  shadowSize: [50, 64],
+                  iconAnchor: [22, 94],
+                  shadowAnchor: [4, 62],
+                  popupAnchor: [-3, -76]
+              }
+          });
+          let icon;
+
+          if (response[i].room_type == "Entire home/apt") {
+
+              icon = new LeafIcon({ iconUrl: '../Resources/green.png' });
+          }
+          else if (response[i].room_type == "Private room") {
+
+              icon = new LeafIcon({ iconUrl: '../Resources/red.png' });
+          }
+          else if (response[i].room_type == "Shared room") {
+
+              icon = new LeafIcon({ iconUrl: '../Resources/orange.png' });
+          }
               // Add a new marker to the cluster group and bind a pop-up
-          let point = markers.addLayer(L.marker([response[i].latitude, response[i].longitude])
+          let point = markers.addLayer(L.marker([response[i].latitude, response[i].longitude], { icon: icon })
               .bindPopup(popupInfo));
           points.push(point);
           //}
@@ -73,6 +97,27 @@ d3.csv("../Resources/listings2.csv", function(response) {
 
       // Set the sum of the listings
       listingDiv.innerText = sumOfListimgs;
+
+      // Set up the legend
+      let legend = L.control({ position: "bottomright" });
+      legend.onAdd = function () {
+          let div = L.DomUtil.create("div", "legend info");
+
+          // LegendInfo room type
+          var legendInfo = "<h1>Room Type</h1>" +
+              "<div>" +
+              "<div class='green' ><h2><b>Entire home/apt</b>: Green</h2></div>" +
+              "<div class='red' ><h2><b>Private room: Red</b></h2></div>" +
+              "<div class='orange' ><h2><b>Shared room</b>: Orange</h2></div>" +
+              "</div>";
+
+          div.innerHTML = legendInfo;
+
+          return div;
+      };
+
+      // Adding legend to the map
+      legend.addTo(myMap);
   }
 });
 
@@ -112,14 +157,40 @@ function neighbourhoodselectEventHandler(event) {
         popupInfo = popupInfo + "<tr><td>Listing Url: <a href='" + filteredDataItems[i].listing_url + "' target='_blank'>" + filteredDataItems[i].listing_url + "</a></td></tr>";
         popupInfo = popupInfo + "</table>";
 
-        let point = markers.addLayer(L.marker([filteredDataItems[i].latitude, filteredDataItems[i].longitude])
+
+        let LeafIcon = L.Icon.extend({
+            options: {
+                shadowUrl: '../Resources/shadowMarker.png',
+                iconSize: [38, 95],
+                shadowSize: [50, 64],
+                iconAnchor: [22, 94],
+                shadowAnchor: [4, 62],
+                popupAnchor: [-3, -76]
+            }
+        });
+
+        let icon;
+
+        if (filteredDataItems[i].room_type == "Entire home/apt") {
+
+            icon = new LeafIcon({ iconUrl: '../Resources/green.png' });
+        }
+        else if (filteredDataItems[i].room_type == "Private room") {
+
+            icon = new LeafIcon({ iconUrl: '../Resources/red.png' });
+        }
+        else if (filteredDataItems[i].room_type == "Shared room") {
+
+            icon = new LeafIcon({ iconUrl: '../Resources/orange.png' });
+        }
+
+        let point = markers.addLayer(L.marker([filteredDataItems[i].latitude, filteredDataItems[i].longitude], { icon: icon })
             .bindPopup(popupInfo));
         points.push(point);
 
         sumOfListimgs++;
     }
-
-    
+  
     // Add our marker cluster layer to the map
     myMap.addLayer(markers);
 
@@ -129,6 +200,27 @@ function neighbourhoodselectEventHandler(event) {
 
     // Set the sum of the listings
     listingDiv.innerText = sumOfListimgs;
+
+    // Set up the legend
+    let legend = L.control({ position: "bottomright" });
+    legend.onAdd = function () {
+        let div = L.DomUtil.create("div", "legend info");
+
+        // LegendInfo room type
+        var legendInfo = "<h1>Room Type</h1>" +
+            "<div>" +
+            "<div class='green' ><h2><b>Entire home/apt</b>: Green</h2></div>" +
+            "<div class='red' ><h2><b>Private room</b>: Red</h2></div>" +
+            "<div class='orange' ><h2><b>Shared room</b>: Orange</h2></div>" +
+            "</div>";
+
+        div.innerHTML = legendInfo;
+
+        return div;
+    };
+
+    // Adding legend to the map
+    legend.addTo(myMap);
 }
 
 neighbourhoodselect.addEventListener("change", neighbourhoodselectEventHandler);

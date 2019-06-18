@@ -115,3 +115,29 @@ body {
     font-weight: bold
 
 }
+
+#tableProjectAnalysis {
+    background-color: chocolate;
+    font-size: x-large;
+    width: 33%
+}
+
+#tableProjectAnalysis td {
+    border-bottom: 1px solid black;
+}
+
+#tableProjectAnalysis tr:hover {
+    background-color: olive;
+}
+
+.green {
+    color:green
+}
+
+.red {
+    color:red
+}
+
+.orange {
+    color:orange
+}
