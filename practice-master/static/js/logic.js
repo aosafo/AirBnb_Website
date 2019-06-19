@@ -60,9 +60,9 @@ d3.csv("../Resources/listings2.csv", function(response) {
 
           let LeafIcon = L.Icon.extend({
               options: {
-                  shadowUrl: '../Resources/shadowMarker.png',
-                  iconSize: [38, 95],
-                  shadowSize: [50, 64],
+                  shadowUrl: "",
+                  iconSize: [18, 30],
+                  shadowSize: [18, 30],
                   iconAnchor: [22, 94],
                   shadowAnchor: [4, 62],
                   popupAnchor: [-3, -76]
@@ -99,16 +99,16 @@ d3.csv("../Resources/listings2.csv", function(response) {
       listingDiv.innerText = sumOfListimgs;
 
       // Set up the legend
-      let legend = L.control({ position: "bottomright" });
+      let legend = L.control({ position: "topright" });
       legend.onAdd = function () {
           let div = L.DomUtil.create("div", "legend info");
 
           // LegendInfo room type
-          var legendInfo = "<h1>Room Type</h1>" +
-              "<div>" +
-              "<div class='green' ><h2><b>Entire home/apt</b>: Green</h2></div>" +
-              "<div class='red' ><h2><b>Private room: Red</b></h2></div>" +
-              "<div class='orange' ><h2><b>Shared room</b>: Orange</h2></div>" +
+          var legendInfo = "<div class='legend_Div'>" + 
+              "<h2>Room Type</h2>" +
+              "<div class='green' ><h3><b>Entire home/apt</b>: Green</h3></div>" +
+              "<div class='red' ><h3><b>Private room: Red</b></h3></div>" +
+              "<div class='orange' ><h3><b>Shared room</b>: Orange</h3></div>" +
               "</div>";
 
           div.innerHTML = legendInfo;
@@ -160,9 +160,9 @@ function neighbourhoodselectEventHandler(event) {
 
         let LeafIcon = L.Icon.extend({
             options: {
-                shadowUrl: '../Resources/shadowMarker.png',
-                iconSize: [38, 95],
-                shadowSize: [50, 64],
+                shadowUrl:"",
+                iconSize: [18, 30],
+                shadowSize: [18, 30],
                 iconAnchor: [22, 94],
                 shadowAnchor: [4, 62],
                 popupAnchor: [-3, -76]
@@ -195,32 +195,37 @@ function neighbourhoodselectEventHandler(event) {
     myMap.addLayer(markers);
 
     if (filteredDataItems.length > 0) {
+        if (val == "Chicago") {
+            myMap.flyTo(new L.LatLng(41.8781, -87.6298), 11);
+        }
+        else {
         myMap.flyTo(new L.LatLng(filteredDataItems[0].latitude, filteredDataItems[0].longitude), 15);
+        }
     }
 
     // Set the sum of the listings
     listingDiv.innerText = sumOfListimgs;
 
-    // Set up the legend
-    let legend = L.control({ position: "bottomright" });
-    legend.onAdd = function () {
-        let div = L.DomUtil.create("div", "legend info");
+    // // Set up the legend
+    // let legend = L.control({ position: "bottomright" });
+    // legend.onAdd = function () {
+    //     let div = L.DomUtil.create("div", "legend info");
 
-        // LegendInfo room type
-        var legendInfo = "<h1>Room Type</h1>" +
-            "<div>" +
-            "<div class='green' ><h2><b>Entire home/apt</b>: Green</h2></div>" +
-            "<div class='red' ><h2><b>Private room</b>: Red</h2></div>" +
-            "<div class='orange' ><h2><b>Shared room</b>: Orange</h2></div>" +
-            "</div>";
+    //     // LegendInfo room type
+    //     var legendInfo = "<h1>Room Type</h1>" +
+    //         "<div>" +
+    //         "<div class='green' ><h2><b>Entire home/apt</b>: Green</h2></div>" +
+    //         "<div class='red' ><h2><b>Private room</b>: Red</h2></div>" +
+    //         "<div class='orange' ><h2><b>Shared room</b>: Orange</h2></div>" +
+    //         "</div>";
 
-        div.innerHTML = legendInfo;
+    //     div.innerHTML = legendInfo;
 
-        return div;
-    };
+    //     return div;
+    // };
 
-    // Adding legend to the map
-    legend.addTo(myMap);
+    // // Adding legend to the map
+    // legend.addTo(myMap);
 }
 
 neighbourhoodselect.addEventListener("change", neighbourhoodselectEventHandler);

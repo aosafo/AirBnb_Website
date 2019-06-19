@@ -31,19 +31,22 @@ d3.csv("../Resources/listings2.csv", function (response) {
 
             TotalMinimumNights = TotalMinimumNights + parseInt(response[i].minimum_nights);
             TotalMaximumNights = TotalMaximumNights + parseInt(response[i].maximum_nights);
-            TotalAccomodates = TotalAccomodates + parseInt(response[i].accommodates);
+            // TotalAccomodates = TotalAccomodates + parseInt(response[i].accommodates);
 
         }
 
+        let monthlyprice=totalMonthyPrice/12;
+        let availability_year=totalAvailability_365/365;
         let tableProperties = "<table id='tableProjectAnalysis' >";
-        tableProperties = tableProperties + "<tr><td>Total Monthly Price: $" + numberWithCommas(totalMonthyPrice) + "</td></tr>";
-        tableProperties = tableProperties + "<tr><td>Total Availability (days): " + totalAvailability_365 + "</td></tr>";
-        tableProperties = tableProperties + "<tr><td>Total Number of Reviews: " + TotalNumberOfReviews + "</td></tr>";
-        tableProperties = tableProperties + "<tr><td>Total Review Score Rating: " + TotalReviewScoreRating + "</td></tr>";
-        tableProperties = tableProperties + "<tr><td>Total Reviews Per Month: " + TotalReviewsPerMonth.toFixed(2) + "</td></tr>";
-        tableProperties = tableProperties + "<tr><td>Total Minimum Nights: " + TotalMinimumNights + "</td></tr>";
-        tableProperties = tableProperties + "<tr><td>Total Maximum Nights: " + TotalMaximumNights + "</td></tr>";
-        tableProperties = tableProperties + "<tr><td>Total Accomodates: " + TotalAccomodates + "</td></tr>";
+        tableProperties = tableProperties + "<thead><tr><th scope='col'>Features:</th><th scope='col'>Details</th></tr></thead>";
+        tableProperties = tableProperties + "<tr><td>Avg. Monthly Income </td><td> $" + numberWithCommas(monthlyprice.toFixed(2)) + "</td></tr>";
+        tableProperties = tableProperties + "<tr><td>Availability(year) </td><td>" + numberWithCommas(availability_year.toFixed(2)) + "</td></tr>";
+        tableProperties = tableProperties + "<tr><td>Number of Reviews </td><td>" + numberWithCommas(TotalNumberOfReviews) + "</td></tr>";
+        // tableProperties = tableProperties + "<tr><td>Total Review Score Rating: " + TotalReviewScoreRating + "</td></tr>";
+        tableProperties = tableProperties + "<tr><td>Reviews Per Month </td><td>" + numberWithCommas(TotalReviewsPerMonth.toFixed(2)) + "</td></tr>";
+        tableProperties = tableProperties + "<tr><td>Minimum Stay </td><td>" + numberWithCommas(TotalMinimumNights) + "</td></tr>";
+        tableProperties = tableProperties + "<tr><td>Maximum Stay </td><td>" + numberWithCommas(TotalMaximumNights) + "</td></tr>";
+        // tableProperties = tableProperties + "<tr><td>Total Accomodates </td><td>" + TotalAccomodates + "</td></tr>";
         tableProperties = tableProperties + "</table>";
 
         tableDiv.innerHTML = tableProperties;
@@ -80,26 +83,29 @@ function neighbourhoodselectEventHandler(event) {
         totalAvailability_365 = totalAvailability_365 + parseInt(filteredDataItems[i].availability_365);
         TotalNumberOfReviews = TotalNumberOfReviews + parseInt(filteredDataItems[i].number_of_reviews);
 
-        if (!filteredDataItems[i].review_scores_rating == "")
-            TotalReviewScoreRating = TotalReviewScoreRating + parseInt(filteredDataItems[i].review_scores_rating);
+        // if (!filteredDataItems[i].review_scores_rating == "")
+        //     TotalReviewScoreRating = TotalReviewScoreRating + parseInt(filteredDataItems[i].review_scores_rating);
 
         if (!filteredDataItems[i].reviews_per_month == "")
             TotalReviewsPerMonth = TotalReviewsPerMonth + parseFloat(filteredDataItems[i].reviews_per_month);
 
         TotalMinimumNights = TotalMinimumNights + parseInt(filteredDataItems[i].minimum_nights);
         TotalMaximumNights = TotalMaximumNights + parseInt(filteredDataItems[i].maximum_nights);
-        TotalAccomodates = TotalAccomodates + parseInt(filteredDataItems[i].accommodates);
+        // TotalAccomodates = TotalAccomodates + parseInt(filteredDataItems[i].accommodates);
     }
 
+    let monthlyprice=totalMonthyPrice/12;
+    let availability_year=totalAvailability_365/365;
     let tableProperties = "<table id='tableProjectAnalysis' >";
-    tableProperties = tableProperties + "<tr><td>Total Monthly Price: $" + numberWithCommas(totalMonthyPrice) + "</td></tr>";
-    tableProperties = tableProperties + "<tr><td>Total Availability (days): " + totalAvailability_365 + "</td></tr>";
-    tableProperties = tableProperties + "<tr><td>Total Number of Reviews: " + TotalNumberOfReviews + "</td></tr>";
-    tableProperties = tableProperties + "<tr><td>Total Review Score Rating: " + TotalReviewScoreRating + "</td></tr>";
-    tableProperties = tableProperties + "<tr><td>Total Reviews Per Month: " + TotalReviewsPerMonth.toFixed(2) + "</td></tr>";
-    tableProperties = tableProperties + "<tr><td>Total Minimum Nights: " + TotalMinimumNights + "</td></tr>";
-    tableProperties = tableProperties + "<tr><td>Total Maximum Nights: " + TotalMaximumNights + "</td></tr>";
-    tableProperties = tableProperties + "<tr><td>Total Accomodates: " + TotalAccomodates + "</td></tr>";
+    tableProperties = tableProperties + "<thead><tr><th scope='col'>Features:</th><th scope='col'>Details</th></tr></thead>";
+    tableProperties = tableProperties + "<tr><td>Monthly Income </td><td> $" + numberWithCommas(monthlyprice.toFixed(2)) + "</td></tr>";
+    tableProperties = tableProperties + "<tr><td>Availability (year) </td><td>" + numberWithCommas(availability_year.toFixed(2)) + "</td></tr>";
+    tableProperties = tableProperties + "<tr><td>Number of Reviews </td><td>" + numberWithCommas(TotalNumberOfReviews) + "</td></tr>";
+    // tableProperties = tableProperties + "<tr><td>Total Review Score Rating: " + TotalReviewScoreRating + "</td></tr>";
+    tableProperties = tableProperties + "<tr><td>Reviews Per Month </td><td>" + numberWithCommas(TotalReviewsPerMonth.toFixed(2)) + "</td></tr>";
+    tableProperties = tableProperties + "<tr><td>Minimum Stay </td><td>" + numberWithCommas(TotalMinimumNights) + "</td></tr>";
+    tableProperties = tableProperties + "<tr><td>Maximum Stay </td><td>" + numberWithCommas(TotalMaximumNights) + "</td></tr>";
+    // tableProperties = tableProperties + "<tr><td>Total Accomodates </td><td>" + TotalAccomodates + "</td></tr>";
     tableProperties = tableProperties + "</table>";
 
     tableDiv.innerHTML = tableProperties;

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/css/homepage.css" />
     <title>AirBnb Listings</title>
 </head>
-<body>
+<body style="background-color: skyblue">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -28,11 +28,14 @@
         </div>
     </nav>
     <div class="jumbotron jumbotron-fluid text-center">
-        <h1>Project Analysis</h1>
+        <h3 class="header_project_analysis" >Based on the data collected from the AirBnb listings. We have put together the following analysis</h3>
         <div id="neighbourhood" class="container"></div>
         <div class="row content">
             <div class="row">
                 <div class="col-md-4 text-center">
+                        <div>
+                            <span>Click drop down below to see data by neighbourhood</span>
+                        </div>
                     <select class="form-control" id="neighbourhoodselect">
                         <option value="Chicago">Chicago</option>
                         <option value="empty" class="neighbourhood" disabled="disabled">Select neighbourhood</option>
